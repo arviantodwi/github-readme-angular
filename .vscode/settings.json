@@ -1,0 +1,5 @@
+{
+    "tslint.packageManager": "yarn",
+    "prettier.printWidth": 140,
+    "scssFormatter.printWidth": 140
+}
