@@ -11,7 +11,7 @@ import {
 import { introspectionQueryResultData } from './graphql.schema';
 
 const uri = 'https://api.github.com/graphql';
-const token = '68a7f07a1423bf5fca5aa85119a720027b93327c';
+const token = 'a928a4bc0b7a82f3babf4afe235df44f6a43c357';
 
 export function createApollo(httpLink: HttpLink) {
   const headers = setContext((operation, context) => ({

@@ -12,7 +12,6 @@ import {
   distinctUntilChanged,
   filter,
   map,
-  tap,
   takeUntil
 } from 'rxjs/operators';
 import cloneDeep from 'lodash-es/cloneDeep';
@@ -29,7 +28,7 @@ export class UsersSearchComponent implements OnInit, AfterViewInit, OnDestroy {
   isLoading = false;
   usersSuggestions: any[] = [];
   showUsersSuggestions = false;
-  private keyupEvent: Observable<KeyboardEvent>;
+  private inputEvent: Observable<Event>;
   private readonly onDestroy = new Subject<void>();
 
   // Element References
@@ -55,20 +54,20 @@ export class UsersSearchComponent implements OnInit, AfterViewInit, OnDestroy {
   ngAfterViewInit(): void {
     this.usersSuggestionMenu.nativeElement.style.width = `${this.searchControl.nativeElement.offsetWidth}px`;
 
-    this.keyupEvent = fromEvent(this.searchControl.nativeElement, 'keyup');
-    this.keyupEvent
+    this.inputEvent = fromEvent(this.searchControl.nativeElement, 'input');
+    this.inputEvent
       .pipe(
-        map((ev: any) => ev.target.value),
-        tap((value: string) => {
+        distinctUntilChanged(),
+        map((ev: any) => {
+          const { value } = ev.target;
           if (value === '' && this.usersSuggestions.length) {
-            this.usersSuggestions.splice(0, this.usersSuggestions.length);
             this.showUsersSuggestions = false;
-            return;
+            this.usersSuggestions.splice(0, this.usersSuggestions.length);
           }
+          return value;
         }),
         filter(Boolean),
         debounceTime(500),
-        distinctUntilChanged(),
         takeUntil(this.onDestroy)
       )
       .subscribe({
