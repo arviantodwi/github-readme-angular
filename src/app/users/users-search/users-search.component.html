@@ -1,0 +1,39 @@
+<div class="field gr-users-search">
+  <label class="label">Github Username</label>
+  <div [ngClass]="{ 'is-loading': isLoading }" class="control">
+    <input
+      #searchControl
+      class="input"
+      type="text"
+      placeholder="e.g. arviantodwi"
+      (focus)="handleSearchFocus()"
+    />
+  </div>
+
+  <div
+    class="dropdown"
+    [ngClass]="{ 'is-active': showUsersSuggestions }"
+    (appDropdownClickOutside)="handleOutsideClick($event.target)"
+  >
+    <div #usersSuggestionMenu class="dropdown-menu" role="menu">
+      <div *ngIf="usersSuggestions.length" class="dropdown-content">
+        <a
+          routerLink="/avitanures"
+          class="dropdown-item"
+          *ngFor="let user of usersSuggestions"
+        >
+          <span class="level">
+            <span class="level-left">
+              <span class="level-item">
+                <img class="image is-32x32" src="{{ user.avatar }}" />
+              </span>
+              <span class="level-item">
+                <strong>{{ user.username }}</strong>
+              </span>
+            </span>
+          </span>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>

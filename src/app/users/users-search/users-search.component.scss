@@ -1,0 +1,14 @@
+.gr-users-search {
+  position: relative;
+
+  .dropdown {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+
+    &-content {
+      max-height: 300px;
+      overflow-y: scroll;
+    }
+  }
+}
