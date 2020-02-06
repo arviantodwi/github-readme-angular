@@ -1,0 +1,17 @@
+.gr-home {
+  height: calc(100vh - (48px * 2) - (12px * 2));
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  .icons {
+    position: relative;
+    z-index: 1;
+  }
+  .title {
+    position: relative;
+    z-index: 2;
+    margin-top: -28px;
+    transform: scale(1.1);
+  }
+}
